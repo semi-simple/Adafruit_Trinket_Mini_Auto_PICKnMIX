@@ -20,21 +20,25 @@
 // define pin settings
 
 const int START = 0;                            // Start button connected to this pin (JAMMA pin 17)
-const int PNM_DISABLE = 1;                      // button that will disable PICKnMIX connected to this pin (JAMMA pin 22=A 23=B 24=C 25=D)
-int SKIP;
+const int LED = 1;
+const int PNM_DISABLE = 2;                      // button that will disable PICKnMIX connected to this pin (JAMMA pin 22=A 23=B 24=C 25=D)
 
 void setup() {
   sleep_disable();                        // disable sleep mode
 
   pinMode(START, OUTPUT);                 // sets the digital pin 0 connected to Start button as OUTPUT
-  pinMode(PNM_DISABLE, INPUT);            // sets the digital pin 1 connected to PNM_DISABLE button as INPUT
+  pinMode(LED, OUTPUT);
+  pinMode(PNM_DISABLE, INPUT_PULLUP);     // sets the digital connected to PNM_DISABLE button as INPUT and
+                                          // activate the internal pull up resistor.
   digitalWrite(START, HIGH);
-  SKIP =digitalRead(PNM_DISABLE);         // check the PNM_DISABLE button state
-  if (SKIP == HIGH) {                     // If PNM_DISABLE button is NOT pressed (still in HIGH state)
+  const bool skip = (digitalRead(PNM_DISABLE) == LOW);         // check the PNM_DISABLE button state
+  if (!skip) {                            // If PNM_DISABLE button is NOT pressed (still in HIGH state)
+    digitalWrite(LED, HIGH);
     digitalWrite(START, LOW);             // sets the digital pin 0 to GND (Hold Start button)
     delay(5000);                          // waits for 5 seconds to enable PICKnMIX
   }
   pinMode(START, INPUT);                  // sets the digital pin 0 as INPUT (Release Start button)
+  digitalWrite(LED, LOW);
 }
 
 void loop() {
