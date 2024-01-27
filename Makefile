@@ -31,6 +31,7 @@ compile: $(OUTPUT_DIR)/$(PROJECT_FILE).hex
 
 $(OUTPUT_DIR)/$(PROJECT_FILE).hex: $(wildcard *.cpp) $(wildcard *.h) $(PROJECT_FILE)
 	arduino-cli compile $(EXTRA_FLAGS) --output-dir "$(OUTPUT_DIR)" -b "$(BOARD)" -e
+	cp $@ prebuilt/autopicknmix.hex
 
 upload: compile
 	micronucleus $(OUTPUT_DIR)/$(PROJECT_FILE).hex

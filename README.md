@@ -29,9 +29,13 @@ How to setup:
 
 In the above setup - The Holding the D button during POWER ON will skip PICKnMIX
 
+Build with Arduino IDE, arduino-cli (you can use the Makefile) or simply use prebuilt/autopickmix.hex
+
 ### Does NOT work with standard Adafruit Trinket Mini 3v/5v bootloader (takes more than 2 seconds before code executes)
 Must use Bootloader found here: https://forums.adafruit.com/download/file.php?id=34218 (trinketloader_skippow25.zip) 
 
-Or you can use the micronucleus bootloader in prebuilt/micronucleus-bootloader.hex (the micronucleus command line
+Or you can use the Micronucleus bootloader in prebuilt/micronucleus-bootloader.hex (the micronucleus command line
 utility can later be used to update code etc - use a USB 2.0 port for that). This bootloader was slightly modified
 to reduce boot time (FAST_EXIT_NO_USB_MS set to 300).
+
+Note that the "upload" step in the Makefile is designed for Micronucleus.
