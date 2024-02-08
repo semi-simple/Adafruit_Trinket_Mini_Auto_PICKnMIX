@@ -26,18 +26,20 @@ const int PNM_DISABLE = 2;                      // button that will disable PICK
 void setup() {
   sleep_disable();                        // disable sleep mode
 
-  pinMode(START, OUTPUT);                 // sets the digital pin 0 connected to Start button as OUTPUT
+  pinMode(START, INPUT);                  // sets the digital pin 0 connected to Start button as INPUT (high-Z)
+                                          // as we don't want to drive it for now.
   pinMode(LED, OUTPUT);
   pinMode(PNM_DISABLE, INPUT_PULLUP);     // sets the digital connected to PNM_DISABLE button as INPUT and
                                           // activate the internal pull up resistor.
-  digitalWrite(START, HIGH);
+
   const bool skip = (digitalRead(PNM_DISABLE) == LOW);         // check the PNM_DISABLE button state
   if (!skip) {                            // If PNM_DISABLE button is NOT pressed (still in HIGH state)
     digitalWrite(LED, HIGH);
+    pinMode(START, OUTPUT);
     digitalWrite(START, LOW);             // sets the digital pin 0 to GND (Hold Start button)
     delay(5000);                          // waits for 5 seconds to enable PICKnMIX
   }
-  pinMode(START, INPUT);                  // sets the digital pin 0 as INPUT (Release Start button)
+  pinMode(START, INPUT);                  // sets the digital pin 0 back as INPUT (Release Start button)
   digitalWrite(LED, LOW);
 }
 
