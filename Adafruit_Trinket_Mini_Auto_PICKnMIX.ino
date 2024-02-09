@@ -32,12 +32,14 @@ void setup() {
   pinMode(PNM_DISABLE, INPUT_PULLUP);     // sets the digital connected to PNM_DISABLE button as INPUT and
                                           // activate the internal pull up resistor.
 
+  delay(200);                             // Wait a little bit before checking button state. There could
+                                          // be startup transients.
   const bool skip = (digitalRead(PNM_DISABLE) == LOW);         // check the PNM_DISABLE button state
   if (!skip) {                            // If PNM_DISABLE button is NOT pressed (still in HIGH state)
     digitalWrite(LED, HIGH);
     pinMode(START, OUTPUT);
     digitalWrite(START, LOW);             // sets the digital pin 0 to GND (Hold Start button)
-    delay(5000);                          // waits for 5 seconds to enable PICKnMIX
+    delay(4800);                          // waits for 5 seconds to enable PICKnMIX
   }
   pinMode(START, INPUT);                  // sets the digital pin 0 back as INPUT (Release Start button)
   digitalWrite(LED, LOW);
